@@ -1,18 +1,21 @@
 // "use client";
 // import { useEffect, useState } from "react";
 
+import { link } from "fs";
+import Link from "next/link";
+
 export const metadata = {
   title: "Home",
 };
 
-const URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
+export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
 
 // server 컴포넌트에서는 브라우저를 통해 API를 사용하지 않는다. 백엔드에서 데이터를 가져온다.
 // 첫 번째 fectch를 위해 API에 요청하고 나면 그 다음부터는 데이터가 캐싱되어 fetch할 필요 없음.
 // 또한 백엔드에서 데이터를 가져오기 때문에 코드가 안전하며 API키를 사용할 수 있고, 데이터베이스와 소통할 수도 있다.
 async function getMovies() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  const response = await fetch(URL);
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  const response = await fetch(API_URL);
   const json = await response.json();
   return json;
   // return fetch(URL).then((response) => response.json());
@@ -38,5 +41,14 @@ export default async function HomePage() {
   // }, []);
   // return <div>{isLoading ? "Loading..." : JSON.stringify(movies)}</div>;
   const movies = await getMovies();
-  return <div>{JSON.stringify(movies)}</div>;
+  // return <div>{JSON.stringify(movies)}</div>;
+  return (
+    <div>
+      {movies.map((movie) => (
+        <li key={movie.id}>
+          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+        </li>
+      ))}
+    </div>
+  );
 }
