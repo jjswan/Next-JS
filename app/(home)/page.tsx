@@ -4,13 +4,12 @@
 import Link from "next/link";
 import Movie from "../../components/movie";
 import styles from "../../styles/home.module.css";
+import { API_URL } from "../constants";
 
 // 동적인 타이틀
 export const metadata = {
   title: "Home",
 };
-
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
 
 // server 컴포넌트에서는 브라우저를 통해 API를 사용하지 않는다. 백엔드에서 데이터를 가져온다.
 // 첫 번째 fectch를 위해 API에 요청하고 나면 그 다음부터는 데이터가 캐싱되어 fetch할 필요 없음.

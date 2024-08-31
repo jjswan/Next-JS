@@ -1,16 +1,16 @@
 import { Suspense } from "react";
-import { API_URL } from "../../../(home)/page";
+// import { API_URL } from "../constants";
 import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
 
 // 동적인 제목을 갖는 홈페이지를 위해 존재함
 // page component가 params에서 url의 id를 전달받는 것처럼 Dynamic MetaData에서도 params를 받음
 
-type IParams = {
+interface IParams {
   params: { id: string };
-};
+}
 
-export async function generateMetaData({ params: { id } }: IParams) {
+export async function generateMetadata({ params: { id } }: IParams) {
   const movie = await getMovie(id);
   return {
     title: movie.title,

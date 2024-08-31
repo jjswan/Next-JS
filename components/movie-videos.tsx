@@ -1,4 +1,4 @@
-import { API_URL } from "../app/(home)/page";
+import { API_URL } from "../app/constants";
 import styles from "../styles/movie-videos.module.css";
 
 // parallel에서 분리하여 영상들만 가져옴
