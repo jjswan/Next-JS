@@ -5,6 +5,7 @@ import Link from "next/link";
 import Movie from "../../components/movie";
 import styles from "../../styles/home.module.css";
 
+// 동적인 타이틀
 export const metadata = {
   title: "Home",
 };

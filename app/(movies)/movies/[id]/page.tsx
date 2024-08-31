@@ -1,7 +1,26 @@
 import { Suspense } from "react";
 import { API_URL } from "../../../(home)/page";
-import MovieInfo from "../../../../components/movie-info";
+import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
+
+// 동적인 제목을 갖는 홈페이지를 위해 존재함
+// page component가 params에서 url의 id를 전달받는 것처럼 Dynamic MetaData에서도 params를 받음
+
+type IParams = {
+  params: { id: string };
+};
+
+export async function generateMetaData({ params: { id } }: IParams) {
+  const movie = await getMovie(id);
+  return {
+    title: movie.title,
+  };
+
+  // return {
+  //   title: `${movie.title} | Next JS`,
+  //   description: movie.description || "The best movies on the best framework",
+  // };
+}
 
 // async function getMovie(id: string) {
 //   const response = await fetch(`${API_URL}/${id}`);
@@ -13,11 +32,7 @@ import MovieVideos from "../../../../components/movie-videos";
 //   return response.json();
 // }
 
-export default async function MovieDetail({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
+export default async function MovieDetail({ params: { id } }: IParams) {
   // console.log(props); props는 대괄호에 지정한 id가 전해짐.
   // 여기서는 getMovie가 이뤄진 다음에야 getVideos가 이뤄질 수 있다.
   // const movie = await getMovie(id);
